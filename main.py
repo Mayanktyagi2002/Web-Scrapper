@@ -7,6 +7,7 @@ import numpy as np
 import pandas as pd
 from random import randint
 from time import sleep
+import json
 
 source=requests.get('https://getlatka.com');
 source.raise_for_status()
@@ -36,4 +37,18 @@ for page in pages:
         mydata.loc[length]=row
 
 #TOCSV=mydata.to_csv('C:\data\company_details.csv')
-TOJson=mydata.to_json('C:\data\company_details.json')
+#TOJson=mydata.to_json('C:\data\company_details.json')
+
+
+
+
+
+#print(mydata)
+json_output = mydata.to_json()
+print(json_output)
+#wite json data to file
+data_list = []
+for index, row in list(mydata.iterrows()):
+    data_list.append(dict(row))
+with open("c:/aa/output.json",  "w") as f:
+    f.write("\n".join(str(item) for item in data_list))
